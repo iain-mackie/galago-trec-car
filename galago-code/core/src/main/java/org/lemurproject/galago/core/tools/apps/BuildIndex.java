@@ -649,10 +649,10 @@ public class BuildIndex extends AppFunction {
       //- Add galago version, version build datetime and index build datetime
       //  to the build Parameters.
       //- Get Galago version, build and index datetime info
-      VersionInfo.setGalagoVersionAndBuildDateTime();
-      buildParameters.set ("galagoVersion", VersionInfo.getGalagoVersion());
-      buildParameters.set ("galagoVersionBuildDateTime", VersionInfo.getGalagoVersionBuildDateTime());
-      buildParameters.set ("indexBuildDateTime", VersionInfo.getIndexBuildDateTime());
+      // VersionInfo.setGalagoVersionAndBuildDateTime();
+      // buildParameters.set ("galagoVersion", VersionInfo.getGalagoVersion());
+      // buildParameters.set ("galagoVersionBuildDateTime", VersionInfo.getGalagoVersionBuildDateTime());
+      // buildParameters.set ("indexBuildDateTime", VersionInfo.getIndexBuildDateTime());
 
       Job job = new Job();
 

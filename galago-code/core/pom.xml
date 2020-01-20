@@ -25,6 +25,12 @@
     <developerConnection>scm:hg:ssh://USERNAME@lemur.hg.sourceforge.net/hgroot/lemur/galago</developerConnection>
     <url>http://lemur.hg.sourceforge.net/hgweb/lemur/galago/</url>
   </scm>
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
   <reporting>
     <plugins>
       <plugin>
@@ -133,6 +139,11 @@
       <artifactId>stanford-corenlp</artifactId>
       <version>3.7.0</version>
       <classifier>models</classifier>
+    </dependency>
+    <dependency>     
+      <groupId>com.github.TREMA-UNH</groupId>
+      <artifactId>trec-car-tools-java</artifactId>
+      <version>13</version>
     </dependency>
   </dependencies>
 
