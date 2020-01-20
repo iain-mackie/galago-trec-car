@@ -28,24 +28,18 @@ RUN wget --no-verbose -O /tmp/apache-maven-3.3.9-bin.tar.gz http://www-eu.apache
     rm -f /tmp/apache-maven-3.3.9-bin.tar.gz
 ENV MAVEN_HOME /opt/maven
 
-# Install & build Anserini
+# Install & build Galago
 WORKDIR /home/
-RUN git clone https://github.com/castorini/anserini
-WORKDIR /home/anserini/
-RUN mvn clean package appassembler:assemble -DskipTests -Dmaven.javadoc.skip=true
-WORKDIR /home/anserini/eval/
-RUN tar xvfz trec_eval.9.0.4.tar.gz 
-WORKDIR /home/anserini/eval/trec_eval.9.0.4/ 
-RUN make
+RUN git clone https://github.com/iain-mackie/galago-trec-car
+WORKDIR /home/galago-trec-car/galago-code
+RUN mvn package -DskipTests=true -Dmaven.test.skip=true
 
-# Run Anserini
-WORKDIR /home/anserini
-CMD target/appassembler/bin/IndexCollection \
-    -collection CarCollection \
-    -generator LuceneDocumentGenerator \
-    -input ${input} \
-    -index ${index} \ 
-    -threads ${threads} \
-    -storePositions \
-    -storeDocvectors \
-    -storeRawDocs 
+# Run Galago
+CMD bash ./core/target/appassembler/bin/galago build \
+     --inputPath=/home/shared/data/paragraphs/dedup.articles-paragraphs.cbor \
+     --fileType=cbor \ 
+     --indexPath=/home/index \
+     --mode=local \ 
+     --galagoJobDir=/home/galago-tmp \ 
+
+#CMD bash ./core/target/appassembler/bin/galago build --inputPath=/home/shared/data/paragraphs/dedup.articles-paragraphs.cbor --indexPath=/home/shared/index/ --fileType=cbor --mode=local --galagoJobDir=/home/galago-tmp \ 
