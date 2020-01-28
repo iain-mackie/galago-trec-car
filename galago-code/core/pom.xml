@@ -145,6 +145,11 @@
       <artifactId>trec-car-tools-java</artifactId>
       <version>17</version>
     </dependency>
+    <dependency>
+      <groupId>co.nstant.in</groupId>
+      <artifactId>cbor</artifactId>
+      <version>0.4</version>
+    </dependency>
   </dependencies>
 
   <!-- Define galago build timestamp for use in version.properties -->
