@@ -1,0 +1,11 @@
+FROM iainmackie/galago-base-image:v3
+
+MAINTAINER iain mackie
+
+CMD bash ./core/target/appassembler/bin/galago build \     
+	--inputPath=${INPUT} \
+	--indexPath=${INDEX} \
+     	--fileType=cbor \ 
+     	--mode=local \ 
+     	--galagoJobDir=/home/galago-tmp \ 
+

@@ -1,4 +1,4 @@
-FROM iainmackie/galago-base-image:v2
+FROM iainmackie/galago-base-image:v3
 
 MAINTAINER iain mackie
 

@@ -1,0 +1,36 @@
+######################
+Commands to run to make files read/write
+
+- end of scripts groupwrite permissons (run chmod -R 775 *)
+- copy scp (chmod -R 775 files && chgroup -R nfsnobody *)
+
+
+######################
+OpenShift: iainmackie/galago-index-paragraphs
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: galago-trec-car-index-paragraphs
+  namespace: imackieproject
+spec:
+  volumes:
+  - name: nfs-access
+    persistentVolumeClaim:
+      claimName: imackievol1claim
+  containers:
+  - env: 
+    - name: INPUT
+      value: /nfs/trec_car/data/paragraphs/
+    - name: INDEX
+      value: /nfs/trec_car/index/galago_paragraphs/galago-index.car17v2.0.paragraphs.openshift
+    name: galago-trec-car-index-paragraphs-container
+    image: iainmackie/galago-index-paragraphs:v1
+    imagePullPolicy: IfNotPresent
+    volumeMounts: 
+    - mountPath: /nfs/
+      name: nfs-access
+  restartPolicy: Never
+
+######################
+OpenShift: iainmackie/
