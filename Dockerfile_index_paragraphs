@@ -7,5 +7,5 @@ CMD bash ./core/target/appassembler/bin/galago build \
 	--indexPath=${INDEX} \
      	--fileType=cbor \ 
      	--mode=local \ 
-     	--galagoJobDir=/home/galago-tmp \ 
+     	--galagoJobDir=${GALAGOJOBDIR} \ 
 

@@ -11,6 +11,7 @@ if [ -f "$DOCKER_PATH" ]; then
   	-v $PWD/shared/index/:/home/shared/index \
   	-e INPUT=/home/shared/data/pages/unprocessedAllButBenchmark.Y2.cbor \
     -e INDEX=/home/shared/index/galago-index \
+    -e GALAGOJOBDIR=home/shared/index/galago-tmp-pages \
   	iainmackie/galago-index-pages
 
 else
