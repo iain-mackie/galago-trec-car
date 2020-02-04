@@ -2,7 +2,7 @@
 Commands to run to make files read/write
 
 - end of scripts groupwrite permissons (run chmod -R 775 *)
-- copy scp (chmod -R 775 files && chgroup -R nfsnobody *)
+- copy scp (chmod -R 775 files && chgrp -R nfsnobody *)
 
 
 ######################
@@ -62,3 +62,68 @@ spec:
     - mountPath: /nfs/
       name: nfs-access
   restartPolicy: Never
+
+######################
+OpenShift: iainmackie/galago-search-bm25
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: galago-trec-car-search-bm25
+  namespace: imackieproject
+spec:
+  volumes:
+  - name: nfs-access
+    persistentVolumeClaim:
+      claimName: imackievol1claim
+  containers:
+  - env: 
+    - name: HITS
+      value: '1000'
+    - name: INDEX
+      value: /nfs/trec_car/index/galago_paragraphs/galago-index.car17v2.0.paragraphs.openshift
+    - name: CONFIG
+      value: /nfs/trec_car/data/test_galago/galago_test_tree_hierarchical_bm25.json
+    - name: RUN
+      value: /nfs/trec_car/data/test_galago/galago_test_tree_hierarchical_bm25.runv3
+    name: galago-trec-car-search-bm25-container
+    image: iainmackie/galago-search-bm25:v4
+    imagePullPolicy: IfNotPresent
+    volumeMounts: 
+    - mountPath: /nfs/
+      name: nfs-access
+  restartPolicy: Never
+
+######################
+OpenShift: iainmackie/galago-search-bm25-krovetz
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: galago-trec-car-search-bm25-krovetz
+  namespace: imackieproject
+spec:
+  volumes:
+  - name: nfs-access
+    persistentVolumeClaim:
+      claimName: imackievol1claim
+  containers:
+  - env: 
+    - name: HITS
+      value: '1000'
+    - name: INDEX
+      value: /nfs/trec_car/index/galago_paragraphs/galago-index.car17v2.0.paragraphs.openshift
+    - name: CONFIG
+      value: /nfs/trec_car/data/test_galago/galago_test_tree_hierarchical_preprocessed_bm25.json
+    - name: RUN
+      value: /nfs/trec_car/data/test_galago/galago_test_tree_hierarchical_preprocessed_bm25.run
+    name: galago-trec-car-search-bm25-korvetz-container
+    image: iainmackie/galago-search-bm25-krovetz:v1
+    imagePullPolicy: IfNotPresent
+    volumeMounts: 
+    - mountPath: /nfs/
+      name: nfs-access
+  restartPolicy: Never
+
