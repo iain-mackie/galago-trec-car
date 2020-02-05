@@ -35,6 +35,36 @@ spec:
   restartPolicy: Never
 
 ######################
+OpenShift: iainmackie/galago-index-paragraphs-porter
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: galago-trec-car-index-paragraphs-porter
+  namespace: imackieproject
+spec:
+  volumes:
+  - name: nfs-access
+    persistentVolumeClaim:
+      claimName: imackievol1claim
+  containers:
+  - env: 
+    - name: INPUT
+      value: /nfs/trec_car/data/paragraphs/
+    - name: INDEX
+      value: /nfs/trec_car/index/galago_paragraphs/galago-index.car17v2.0.paragraphs.openshift.porter
+    - name: GALAGOJOBDIR
+      value: /nfs/trec_car/index/galago-tmp-porter
+    name: galago-trec-car-index-paragraphs-container
+    image: iainmackie/galago-index-paragraphs-porter:v1
+    imagePullPolicy: IfNotPresent
+    volumeMounts: 
+    - mountPath: /nfs/
+      name: nfs-access
+  restartPolicy: Never
+
+
+######################
 OpenShift: iainmackie/galago-index-pages
 
 apiVersion: v1
@@ -57,6 +87,35 @@ spec:
       value: /nfs/trec_car/index/galago-tmp-pages
     name: galago-trec-car-index-pages-container
     image: iainmackie/galago-index-pages:v1
+    imagePullPolicy: IfNotPresent
+    volumeMounts: 
+    - mountPath: /nfs/
+      name: nfs-access
+  restartPolicy: Never
+
+######################
+OpenShift: iainmackie/galago-index-pages-porter
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: galago-trec-car-index-pages-porter
+  namespace: imackieproject
+spec:
+  volumes:
+  - name: nfs-access
+    persistentVolumeClaim:
+      claimName: imackievol1claim
+  containers:
+  - env: 
+    - name: INPUT
+      value: /nfs/trec_car/data/pages/
+    - name: INDEX
+      value: /nfs/trec_car/index/galago_pages/galago-index.car17v2.0.pages.openshift.porter
+    - name: GALAGOJOBDIR
+      value: /nfs/trec_car/index/galago-tmp-pages-porter
+    name: galago-trec-car-index-pages-container-porter
+    image: iainmackie/galago-index-pages-porter:v1
     imagePullPolicy: IfNotPresent
     volumeMounts: 
     - mountPath: /nfs/
@@ -94,6 +153,7 @@ spec:
     - mountPath: /nfs/
       name: nfs-access
   restartPolicy: Never
+
 
 ######################
 OpenShift: iainmackie/galago-search-bm25-krovetz
