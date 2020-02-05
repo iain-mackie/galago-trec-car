@@ -187,3 +187,39 @@ spec:
       name: nfs-access
   restartPolicy: Never
 
+
+######################
+OpenShift: iainmackie/galago-search-bm25-krovetz-parameters
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: galago-trec-car-search-bm25-krovetz-parameters
+  namespace: imackieproject
+spec:
+  volumes:
+  - name: nfs-access
+    persistentVolumeClaim:
+      claimName: imackievol1claim
+  containers:
+  - env: 
+    - name: HITS
+      value: '1000'
+    - name: K
+      value: '0.9'
+    - name: B
+      value: '0.4'
+    - name: INDEX
+      value: /nfs/trec_car/index/galago_paragraphs/galago-index.car17v2.0.paragraphs.openshift
+    - name: CONFIG
+      value: /nfs/trec_car/data/test_galago/galago_test_tree_hierarchical_preprocessed_no_stemming_jeff_bm25.json
+    - name: RUN
+      value: /nfs/trec_car/data/test_galago/galago_test_tree_hierarchical_preprocessed_no_stemming_jeff_bm25.run
+    name: galago-trec-car-search-bm25-korvetz-parameters-container
+    image: iainmackie/galago-search-bm25-krovetz-parameters:v1
+    imagePullPolicy: IfNotPresent
+    volumeMounts: 
+    - mountPath: /nfs/
+      name: nfs-access
+  restartPolicy: Never
