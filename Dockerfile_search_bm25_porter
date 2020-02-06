@@ -1,0 +1,10 @@
+FROM iainmackie/galago-base-image:v3
+
+MAINTAINER iain mackie
+
+CMD bash ./core/target/appassembler/bin/galago batch-search \
+	--defaultTextPart=postings.porter \
+	--requested=${HITS} \
+	--index=${INDEX} \ 
+	${CONFIG} > ${RUN}
+
