@@ -231,7 +231,7 @@ OpenShift: iainmackie/galago-search-bm25-porter
 apiVersion: v1
 kind: Pod
 metadata:
-  name: galago-trec-car-search-bm25-krovetz-parameters
+  name: galago-trec-car-search-bm25-porter
   namespace: imackieproject
 spec:
   volumes:
